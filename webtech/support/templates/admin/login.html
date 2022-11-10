@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RCRM Beta Admin Login</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_login.css' %}">
+
+</head>
+
+<body>
+
+    {% if request.user.is_authenticated %}
+
+        <h2 style="text-align: center">
+        You are already logged in as {{ request.user.username }}
+        </h2>
+
+        <h3 style="text-align: center">
+        <a href="/logout/">logout</a>
+        </h3>
+
+    {% else %}
+        <div class="login-page">
+          <div class="form">
+            <form action="{{ app_path }}" method="POST" class="login-form"> {% csrf_token %}
+                {{ form.username.errors }}
+                <div style="text-align: left"> {{ form.username.label_tag }} </div>
+               {{ form.username }}
+
+              {{ form.password.errors }}
+                <div style="text-align: left"> {{ form.password.label_tag }} </div>
+                 {{ form.password }}
+                <input type="hidden" name="next" value="{{ next }}">
+
+              <button type="submit" value="Log in">login</button>
+
+                {% url 'admin_password_reset' as password_reset_url %}
+                {% if password_reset_url %}
+                <p class="message">Forgotten your password or username? <a href="{{ password_reset_url }}">Reset Now</a></p>
+                    {% endif %}
+
+            </form>
+          </div>
+        </div>
+
+
+
+
+
+
+
+                <!---
+                {% comment %}
+                  <form method="POST" class="login-page"> {% csrf_token %}
+                <div class="form-row">
+                    {{ form.username.errors }}
+                    {{ form.username.label_tag }} {{ form.username }}
+                </div>
+
+                <div class="form-row">
+                    {{ form.password.errors }}
+                    {{ form.password.label_tag }} {{ form.password }}
+                    <input type="hidden" name="next" value="{{ next }}">
+                </div>
+
+                <div class="submit-row">
+                    <label>&nbsp;</label><input type="submit" value="Log in">
+                </div>
+                {% endcomment %}
+                -->
+
+
+
+    {% endif %}
+</body>
+
+</html>

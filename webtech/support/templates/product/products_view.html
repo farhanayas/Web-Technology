@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{%  block authnav %}
+    {% if auth %}
+        <a href="/profile/">Profile</a>
+        <a href="/login/">Logout</a>
+        {% else %}
+        <a href="/login/">Login</a>
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if auth %}
+    <h1 style="text-align: center"> users view </h1>
+    <div class="clients_view">
+
+            {% if product_list %}
+
+                {% for x in product_list %}
+                    <p class="clients_sp"> <a href="/client/{{ x|get_item:'c_ident' }}">{{ x|get_item:'c_ident' }}</a> </p>
+
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center">
+                You have no users assigned! <br>
+                Nothing to show!
+                </p>
+            {% endif %}
+        {% else %}
+            <h2 style="margin-left: 10px; margin-right: 10px; text-align: center; font-size: 115%; padding-top:20px;">You are not logged in! Please <a style="text-decoration: none" href="/login"> Login</a></h2>
+        <div style="margin-top: -65px !important;">
+        {% include 'product/login_block.html' %}
+        </div>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+
+{% comment %}
+
+{% extends 'base.html' %}
+{% block content %}
+    <h1 style="text-align: center"> products view </h1>
+    {% if product_list %}
+    {% for foo in product_list %}
+       <p> {{ foo.id }} - <a href="{{ foo.get_absolute_url }}">{{ foo.title }}</a> </p>
+
+    {% endfor %}
+        {% else %}
+        <p style="text-align: center">
+        You are not logged in!
+        </p>
+    {% endif %}
+
+{% endblock %}
+{% endcomment %}
+
+
+{% comment %}
+{% extends 'base.html' %}
+{% load custom_tags %}
+
+{% block content %}
+    <h1 style="text-align: center"> clients view </h1>
+    {% if product_list %}
+
+        {% for x in product_list %}
+            <p> {{ x|get_item:'c_ident' }} </p>
+            <p> <a href="/user/">{{ x|get_item:'c_ident' }}</a> </p>
+
+
+        {% endfor %}
+    {% else %}
+        <p style="text-align: center">
+        You are not logged in!
+        </p>
+    {% endif %}
+
+{% endblock %}
+{% endcomment %}

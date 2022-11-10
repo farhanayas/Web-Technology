@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%  block authnav %}
+    {% if request.user.is_authenticated %}
+        <a href="http://127.0.0.1:8000/profile/">Profile</a>
+        <a href="http://127.0.0.1:8000/login/">Logout</a>
+        {% else %}
+        <a href="http://127.0.0.1:8000/login/">Login</a>
+    {% endif %}
+{% endblock %}
+
+{% block client_css %} {% endblock %}
+
+{% load custom_tags %}
+{% block content %}
+
+    <h1 style="text-align: center"> user detail view </h1>
+    <br>
+
+    <div class="client_style" style="text-align: center">
+        <h2>ID: {{ object|get_item:'c_ident' }}</h2>
+        <p> Password: {{ object|get_item:'p_pw' }}</p>
+        <p> Package: {{ object|get_item:'spack' }}</p>
+        <p> Suspended: {{ object|get_item:'has_suspended' }}</p>
+        <p>Las Logged Out: {{ object|get_item:'last_logged_out' }}</p>
+        {% if rtr_active_info %}
+            <p> Active Now: Yes</p>
+            <p> Current IP: {{ rtr_active_info|get_item:'rtr_active_ip' }}</p>
+        {% else %}
+            <p> Active Now: No</p>
+        {% endif %}
+    </div>
+    <div style="text-align: center; margin-top: 30px;" class="hov">
+    <a href="/" class="back">Back</a>
+    </div>
+
+{% endblock %}

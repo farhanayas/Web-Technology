@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{%  block authnav %}
+    {% if request.user.is_authenticated %}
+        <a href="http://127.0.0.1:8000/profile/">Profile</a>
+        <a href="http://127.0.0.1:8000/login/">Logout</a>
+        {% else %}
+        <a href="http://127.0.0.1:8000/login/">Login</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center"> Profile </h1>
+    <br>
+
+    <div class="client_style" style="text-align: center">
+        <h2>Username: {{ userauth.username }}</h2>
+        <p> Name: {{ userauth.first_name }} {{ userauth.last_name }}</p>
+        <p> Email: {% if userauth.email %} {{ userauth.email }} {% else %} None {% endif %} </p>
+    </div>
+    <div style="text-align: center; margin-top: 30px;" class="hov">
+    <a href="/" class="back">Back</a>
+    </div>
+
+{% endblock %}

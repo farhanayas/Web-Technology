@@ -1,0 +1,17 @@
+<div class="login-page">
+          <div class="form">
+            <form method="POST" class="login-form"> {% csrf_token %}
+                {{ form.username.errors }}
+                <div style="text-align: left"> {{ form.username.label_tag }} </div>
+               {{ form.username }}
+
+              {{ form.password.errors }}
+                <div style="text-align: left"> {{ form.password.label_tag }} </div>
+                 {{ form.password }}
+                <input type="hidden" name="next" value="{{ next }}">
+
+              <button type="submit" value="Log in">login</button>
+
+            </form>
+          </div>
+        </div>
